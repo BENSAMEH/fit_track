@@ -1,4 +1,4 @@
-import 'package:fit_track/features/auth/splash_screen.dart';
+import 'package:fit_track/features/auth/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,7 +17,7 @@ class FitTrackApp extends StatelessWidget {
     // designSize = the screen you designed against (e.g. your Stitch
     // frames). Every .w/.h/.sp/.r value scales relative to this.
     return ScreenUtilInit(
-      designSize: const Size(375, 812), // iPhone-X-ish reference size
+      designSize: const Size(390, 1045), // iPhone-X-ish reference size
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {

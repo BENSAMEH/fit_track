@@ -1,4 +1,5 @@
 import 'package:fit_track/core/theme/app_typography.dart';
+import 'package:fit_track/features/auth/presentation/screens/register_screen.dart';
 import 'package:fit_track/features/auth/presentation/widgets/login_card.dart';
 import 'package:fit_track/features/auth/presentation/widgets/logo_sections.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,12 @@ class LoginScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // Navigate to Register Screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegisterScreen(),
+                        ),
+                      );
                     },
                     child: Text(
                       "Sign up",

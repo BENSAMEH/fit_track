@@ -1,4 +1,3 @@
-import 'package:fit_track/core/theme/app_colors.dart';
 import 'package:fit_track/core/theme/app_typography.dart';
 import 'package:fit_track/features/auth/presentation/widgets/social_login_button.dart';
 import 'package:fit_track/features/auth/presentation/widgets/auth_button.dart';
@@ -19,13 +18,13 @@ class LoginCard extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
         child: Column(
           children: [
-            CustomTextFormField(
+            CustomTextFormFieldLogin(
               hintText: "athlete@example.com",
               label: "EMAIL ADDRESS",
-              preIcon: Icon(Icons.email, color: Color(0xFFBACBB9)),
+              preIcon: Icon(Icons.email, color: Color(0xFFBACBB9)), forget: '',
             ),
             SizedBox(height: 16.h),
-            CustomTextFormField(
+            CustomTextFormFieldLogin(
               label: "PASSWORD",
               preIcon: Icon(Icons.password, color: Color(0xFFBACBB9)),
               hintText: "*********",

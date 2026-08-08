@@ -35,7 +35,7 @@ class SocialSignUpButtons extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: OutlinedButton.icon(
+              child: OutlinedButton(
                 onPressed: onGoogleTap,
                 style: OutlinedButton.styleFrom(
                   backgroundColor: AppColors.secondaryShades[800],
@@ -47,14 +47,8 @@ class SocialSignUpButtons extends StatelessWidget {
                 ),
                 // Simple 'G' glyph — swap for a proper multi-color Google
                 // asset/icon if you want pixel-exact branding.
-                icon: Text(
-                  'G',
-                  style: AppTypography.labelLarge.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                label: Text('Google', style: AppTypography.bodyMedium),
+                child: Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [Image.asset('assets/icons/google.png'),Text('Google', style: AppTypography.bodyMedium),],)),
+                
               ),
             ),
             SizedBox(width:10.w),

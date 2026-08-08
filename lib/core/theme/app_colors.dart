@@ -37,7 +37,7 @@ class AppColors {
   };
 
   // ---- Tertiary (card/surface gray) ----
-  static const tertiary = Color(0xFF242429);
+  static const tertiary = Color(0xFF1A1A1E);
   static const tertiaryShades = {
     900: Color(0xFF000000),
     800: Color(0xFF242429),

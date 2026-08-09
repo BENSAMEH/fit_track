@@ -1,6 +1,6 @@
 import 'package:fit_track/core/theme/app_colors.dart';
 import 'package:fit_track/core/theme/app_typography.dart';
-import 'package:fit_track/features/auth/presentation/widgets/custom_text_form_field.dart';
+import 'package:fit_track/features/auth/presentation/widgets/custom_text_form_field_login.dart';
 import 'package:fit_track/features/auth/presentation/widgets/custom_text_form_field_register.dart';
 import 'package:fit_track/features/auth/presentation/widgets/password_strength_bar.dart';
 import 'package:fit_track/features/auth/presentation/widgets/register_footer_link.dart';

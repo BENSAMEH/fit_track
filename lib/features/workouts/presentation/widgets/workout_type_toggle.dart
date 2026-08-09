@@ -62,12 +62,12 @@ class _ToggleOption extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(10.r),
-      child: AnimatedContainer(
+      child: AnimatedContainer(width: 167.w,height: 48.h,
         duration: const Duration(milliseconds: 150),
         padding: EdgeInsets.symmetric(vertical: 10.h),
         decoration: BoxDecoration(
           color: selected ? AppColors.primary : Colors.transparent,
-          borderRadius: BorderRadius.circular(10.r),
+          borderRadius: BorderRadius.circular(25.r),
         ),
         child: Center(
           child: Text(

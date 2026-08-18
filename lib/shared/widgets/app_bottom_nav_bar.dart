@@ -83,23 +83,27 @@ class _NavButton extends StatelessWidget {
               padding: EdgeInsets.all(selected ? 8.w : 0),
               decoration: BoxDecoration(
                 color: selected ? AppColors.primary : Colors.transparent,
-                shape: BoxShape.circle,
+                borderRadius: BorderRadius.circular(15)
               ),
-              child: Icon(
-                item.icon,
-                color: selected ? Colors.white : AppColors.textSecondary,
-                size: 20.sp,
+              child: Column(
+                children: [
+                  Icon(
+                    item.icon,
+                    color: selected ? Color(0xff007236) : AppColors.textSecondary,
+                    size: 20.sp,
+                  ),Text(
+              item.label,
+              style: AppTypography.labelSmall.copyWith(
+                color: selected ? Color(0xff007236) : AppColors.textSecondary,
+                fontSize: 12.sp,
+                fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+              ),
+            )
+                ],
               ),
             ),
             SizedBox(height: 3.h),
-            Text(
-              item.label,
-              style: AppTypography.labelSmall.copyWith(
-                color: selected ? AppColors.primary : AppColors.textSecondary,
-                fontSize: 10.sp,
-                fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-              ),
-            ),
+            
           ],
         ),
       ),

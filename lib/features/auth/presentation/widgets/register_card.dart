@@ -1,5 +1,7 @@
 import 'package:fit_track/core/theme/app_colors.dart';
 import 'package:fit_track/core/theme/app_typography.dart';
+import 'package:fit_track/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:fit_track/features/auth/presentation/cubit/auth_state.dart';
 import 'package:fit_track/features/auth/presentation/widgets/custom_text_form_field_login.dart';
 import 'package:fit_track/features/auth/presentation/widgets/custom_text_form_field_register.dart';
 import 'package:fit_track/features/auth/presentation/widgets/password_strength_bar.dart';
@@ -7,9 +9,8 @@ import 'package:fit_track/features/auth/presentation/widgets/register_footer_lin
 import 'package:fit_track/features/auth/presentation/widgets/social_sign_up_buttons.dart';
 import 'package:fit_track/features/auth/presentation/widgets/terms_checkbox_row.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-
 
 class RegisterCard extends StatefulWidget {
   const RegisterCard({super.key});
@@ -53,12 +54,11 @@ class _RegisterCardState extends State<RegisterCard> {
       return;
     }
 
-    // TODO: wire to auth Cubit once the auth data layer exists.
-    // e.g. context.read<AuthCubit>().register(
-    //   fullName: _fullNameController.text,
-    //   email: _emailController.text,
-    //   password: _passwordController.text,
-    // );
+    context.read<AuthCubit>().signUp(
+      fullName: _fullNameController.text.trim(),
+      email: _emailController.text.trim(),
+      password: _passwordController.text,
+    );
   }
 
   @override
@@ -174,27 +174,46 @@ class _RegisterCardState extends State<RegisterCard> {
             ),
             SizedBox(height: 16.h),
 
-            ElevatedButton(
-              onPressed: _onSubmit,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.black,
-                padding: EdgeInsets.symmetric(vertical: 16.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14.r),
-                ),
-                elevation: 0,
-              ),
-              child: Text(
-                'Create Account',
-                style: AppTypography.labelLarge.copyWith(
-                  color: Colors.black,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+            // Wrapped in BlocBuilder so it reacts to AuthLoading without
+            // rebuilding the rest of the form (controllers/validators
+            // are unaffected since only this subtree rebuilds).
+            BlocBuilder<AuthCubit, AuthState>(
+              builder: (context, state) {
+                final isLoading = state is AuthLoading;
+                return ElevatedButton(
+                  onPressed: isLoading ? null : _onSubmit,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    disabledBackgroundColor:
+                        AppColors.primary.withValues(alpha: 0.6),
+                    foregroundColor: Colors.black,
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14.r),
+                    ),
+                    elevation: 0,
+                  ),
+                  child: isLoading
+                      ? SizedBox(
+                          width: 22.w,
+                          height: 22.w,
+                          child: const CircularProgressIndicator(
+                            strokeWidth: 2.5,
+                            color: Colors.black,
+                          ),
+                        )
+                      : Text(
+                          'Create Account',
+                          style: AppTypography.labelLarge.copyWith(
+                            color: Colors.black,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                );
+              },
             ),
-            SizedBox(height:16.h),
+            SizedBox(height: 16.h),
 
             SocialSignUpButtons(
               onGoogleTap: () {

@@ -1,4 +1,7 @@
+import 'package:fit_track/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:fit_track/features/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/theme/app_typography.dart';
@@ -29,11 +32,14 @@ class _LoginCardState extends State<LoginCard> {
     final valid = _formKey.currentState?.validate() ?? false;
     if (!valid) return;
 
-    // TODO: wire to auth Cubit once the auth data layer exists.
-    // e.g. context.read<AuthCubit>().login(
-    //   email: _emailController.text,
-    //   password: _passwordController.text,
-    // );
+   
+  
+
+  context.read<AuthCubit>().signIn(
+    email: _emailController.text.trim(),
+    password: _passwordController.text,
+  );
+
   }
 
   @override
@@ -81,7 +87,12 @@ class _LoginCardState extends State<LoginCard> {
                 controller: _passwordController,
                 obscureText: true,
                 onForgotTap: () {
-                  // TODO: navigate to forgot-password screen.
+                 Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const ForgotPasswordScreen(),
+    ),
+  );
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -90,8 +101,15 @@ class _LoginCardState extends State<LoginCard> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.h),
-              AuthButton(onTap: _onContinue, text: 'Continue'),
+              SizedBox(height: 16.h),BlocBuilder<AuthCubit, AuthState>(
+  builder: (context, state) {
+    return AuthButton(
+      onTap: _onContinue,
+      text: 'Continue',
+      isLoading: state is AuthLoading,
+    );
+  },
+),
               SizedBox(height: 18.h),
               Row(
                 children: [

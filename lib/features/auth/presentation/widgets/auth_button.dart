@@ -10,11 +10,13 @@ class AuthButton extends StatelessWidget {
     required this.onTap,
     required this.text,
     this.showArrow = true,
+    this.isLoading = false,
   });
 
   final VoidCallback onTap;
   final String text;
   final bool showArrow;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -22,32 +24,43 @@ class AuthButton extends StatelessWidget {
       width: double.infinity,
       height: 52.h,
       child: ElevatedButton(
-        onPressed: onTap,
+        // Disable taps while loading so it can't be double-submitted.
+        onPressed: isLoading ? null : onTap,
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
+          disabledBackgroundColor: AppColors.primary.withValues(alpha: 0.6),
           foregroundColor: Colors.black,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.r),
           ),
           elevation: 0,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              text,
-              style: AppTypography.labelLarge.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.w700,
-                fontSize: 16.sp,
+        child: isLoading
+            ? SizedBox(
+                width: 22.w,
+                height: 22.w,
+                child: const CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  color: Colors.black,
+                ),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    text,
+                    style: AppTypography.labelLarge.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  if (showArrow) ...[
+                    SizedBox(width: 8.w),
+                    Icon(Icons.arrow_forward, size: 18.sp, color: Colors.black),
+                  ],
+                ],
               ),
-            ),
-            if (showArrow) ...[
-              SizedBox(width: 8.w),
-              Icon(Icons.arrow_forward, size: 18.sp, color: Colors.black),
-            ],
-          ],
-        ),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:fit_track/features/health/presentation/health_screen.dart';
 import 'package:fit_track/features/history/presentation/history_screen.dart';
 import 'package:fit_track/features/profile/presentation/profile_screen.dart';
-import 'package:fit_track/features/progress/presentation/progress_screen.dart';
+import 'package:fit_track/features/progress/presentation/screens/progress_screen.dart';
 import 'package:flutter/material.dart';
 
 
